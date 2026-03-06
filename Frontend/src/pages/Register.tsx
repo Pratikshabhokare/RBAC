@@ -41,88 +41,129 @@ export default function Register() {
   };
 
   return (
-    <div style={{ padding: '30px' }}>
-      <h2>Create a new account</h2>
+    <div className="min-h-[calc(100vh-80px)] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-slate-50 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-b from-indigo-200/50 to-purple-200/50 rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
       
-      <form onSubmit={handleSubmit} style={{ border: '2px dotted blue', padding: '20px', width: '300px' }}>
-        {error && (
-          <div style={{ color: 'red', border: '1px solid red', padding: '5px', marginBottom: '10px' }}>
-            {error}
+      <div className="sm:mx-auto sm:w-full sm:max-w-md relative z-10">
+        <div className="bg-white py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10 border border-slate-100 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+          
+          <div className="mb-8 text-center">
+            <h2 className="text-3xl font-black text-slate-900 tracking-tight">Create an account</h2>
+            <p className="mt-2 text-sm text-slate-500 font-medium">Join us and experience secure access control.</p>
           </div>
-        )}
-        {success && (
-          <div style={{ color: 'green', border: '1px solid green', padding: '5px', marginBottom: '10px' }}>
-            {success}
+
+          <form className="space-y-5" onSubmit={handleSubmit}>
+            {error && (
+              <div className="rounded-lg bg-red-50 p-4 border border-red-100 flex items-start">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" /></svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-red-600">{error}</p>
+                </div>
+              </div>
+            )}
+            {success && (
+              <div className="rounded-lg bg-emerald-50 p-4 border border-emerald-100 flex items-start">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-emerald-500" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM13.707 9.293a1 1 0 00-1.414-1.414L9 11.172 7.707 9.879a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                </div>
+                <div className="ml-3">
+                  <p className="text-sm font-medium text-emerald-600">{success}</p>
+                </div>
+              </div>
+            )}
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700">Full Name</label>
+              <input
+                name="name"
+                type="text"
+                required
+                value={formData.name}
+                onChange={handleChange}
+                className="mt-1 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all sm:text-sm font-medium"
+                placeholder="Jane Doe"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700">Email address</label>
+              <input
+                name="email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="mt-1 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all sm:text-sm font-medium"
+                placeholder="you@example.com"
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-700">Password</label>
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  minLength={6}
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="mt-1 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all sm:text-sm font-medium"
+                  placeholder="Min. 6 chars"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700">Account Role</label>
+                <div className="mt-1 relative">
+                  <select
+                    name="role"
+                    required
+                    value={formData.role}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all sm:text-sm font-semibold text-slate-700 cursor-pointer"
+                  >
+                    <option value="USER">User Role</option>
+                    <option value="ADMIN">Admin Role</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-500">
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-2">
+              <button
+                type="submit"
+                disabled={loading || !!success}
+                className={`w-full flex justify-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all ${
+                  (loading || success) ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg'
+                }`}
+              >
+                {loading ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                    Creating account...
+                  </span>
+                ) : 'Create account'}
+              </button>
+            </div>
+          </form>
+
+          <div className="mt-8 text-center">
+            <p className="text-sm text-slate-500 font-medium">
+              Already have an account?{' '}
+              <Link to="/login" className="font-bold text-indigo-600 hover:text-indigo-500 transition-colors">
+                Sign in instead
+              </Link>
+            </p>
           </div>
-        )}
-        
-        <p>Full Name:</p>
-        <input
-          name="name"
-          type="text"
-          required
-          style={{ width: '90%', marginBottom: '10px' }}
-          placeholder="Enter name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-
-        <p>Email:</p>
-        <input
-          name="email"
-          type="email"
-          required
-          style={{ width: '90%', marginBottom: '10px' }}
-          placeholder="Enter email here"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        
-        <p>Password:</p>
-        <input
-          name="password"
-          type="password"
-          required
-          minLength={6}
-          style={{ width: '90%', marginBottom: '10px' }}
-          placeholder="Enter password here"
-          value={formData.password}
-          onChange={handleChange}
-        />
-
-        <p>Role:</p>
-        <select
-          name="role"
-          required
-          style={{ width: '95%', marginBottom: '20px' }}
-          value={formData.role}
-          onChange={handleChange}
-        >
-          <option value="USER">User Role</option>
-          <option value="ADMIN">Admin Role</option>
-        </select>
-        
-        <br />
-        <button
-          type="submit"
-          disabled={loading || !!success}
-          style={{ 
-            backgroundColor: 'green', 
-            color: 'white', 
-            width: '100%', 
-            padding: '10px', 
-            fontSize: '16px' 
-          }}
-        >
-          {loading ? 'Registering...' : 'Click to Register'}
-        </button>
-        
-        <div style={{ marginTop: '15px' }}>
-          <Link to="/login" style={{ color: 'blue' }}>
-            Already have an account? Sign in.
-          </Link>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
