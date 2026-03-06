@@ -11,62 +11,40 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow w-full">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <Link to="/" className="text-xl font-bold text-indigo-600">
-                RBAC System
-              </Link>
+    <nav style={{ background: 'blue', color: 'white', padding: '10px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div>
+          <h2>
+            <Link to="/" style={{ color: 'white', textDecoration: 'none' }}>
+              My RBAC Website
+            </Link>
+          </h2>
+          {isAuthenticated && (
+            <div style={{ marginTop: '10px' }}>
+              <Link to="/dashboard" style={{ marginRight: '15px', color: 'yellow' }}>Dashboard</Link>
+              {isAdmin && (
+                <Link to="/admin" style={{ color: 'orange' }}>Admin Page</Link>
+              )}
             </div>
-            {isAuthenticated && (
-              <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <Link
-                  to="/dashboard"
-                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                >
-                  Dashboard
-                </Link>
-                {isAdmin && (
-                  <Link
-                    to="/admin"
-                    className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
-                  >
-                    Admin Board
-                  </Link>
-                )}
-              </div>
-            )}
-          </div>
-          <div className="flex items-center">
-            {isAuthenticated ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-700">Hi, {user?.name}</span>
-                <button
-                  onClick={handleLogout}
-                  className="bg-red-50 hover:bg-red-100 text-red-600 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Logout
-                </button>
-              </div>
-            ) : (
-              <div className="flex space-x-4">
-                <Link
-                  to="/login"
-                  className="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Register
-                </Link>
-              </div>
-            )}
-          </div>
+          )}
+        </div>
+        
+        <div>
+          {isAuthenticated ? (
+            <div>
+              <b>User: {user?.name}</b> <br />
+              <button 
+                onClick={handleLogout} 
+                style={{ background: 'red', color: 'white', padding: '5px', marginTop: '5px' }}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div>
+              <Link to="/login" style={{ color: 'white', marginRight: '10px' }}>Login</Link>
+              <Link to="/register" style={{ color: 'white' }}>Register</Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>
